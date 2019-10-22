@@ -75,7 +75,11 @@ h5_template
  │  │  │  ├ track.js        # 统计方法
  │  │  │  ├ utils.js        # 工具函数
  │  │  │  └ viewport.js     # 屏幕适配
+ │  │  ├ Animate.js         # 动画库
  │  │  ├ common.js          # 通用js
+ │  │  ├ hilo-standalone.js # 游戏引擎
+ │  │  ├ imglist.js         # 交互动画参数
+ │  │  ├ Scroller.js        # 滚动插件
  │  │  └ index.js           # js文件
  ├ static/                  # 静态资源文件夹，会直接上传至 https://static.ws.126.net/163/f2e/{channel}/{name}/static/ 下
  ├ .eslintrc.js             # eslint配置文件
@@ -104,3 +108,76 @@ h5_template
 * 已内置`Zepto`，版本`v1.2.0`，包含模块`zepto`、`event`、`ajax`、`form`、`ie`、`detect`、`fx`、`fx_methods`、`assets`、`data`、`deferred`、`callbacks`、`selector`、`touch`、`gesture`、`stack`、`ios3`，[文档](https://zeptojs.com/)。（由于Zepto非模块化js，不能直接打包引入，因此在index.html中引入js，webpack.externals进行排除）
 * npm run dev开启本地服务后，可以使用localhost:8080或{ip}:8080或dev.f2e.163.com:8080（需配置hosts）调试，可使用`eruda`（[文档](https://eruda.liriliri.io/)）进行移动端调试
 * 打包时静态资源默认添加hash，上传后进行缓存，无修改不再重复上传
+
+### 说明
+
+1. 所有图片动画在 `src/js/imglist.js` 内
+2. 动画格式⬇️。精灵动画与transitions动画可叠加，animations与transitions动画可叠加；精灵动画与animations由于play参数公用，不能叠加，只执行精灵动画
+
+```js
+    // 基本属性
+    {
+      id: 'btn_more',   // 元素id，必须，不能重复，用于存储Hilo.View对象以及loadQueue中的id
+      mode: 'Bitmap',   // Hilo.View 类型，必须
+      parent: 'p5',     // 父级元素
+      src: btn_more,    // 图片链接，import进来
+      delay: delay.p5,  // 整体模块delay的时间
+      mask: 'cover_mask'// mask遮罩
+      propes: {x: 70, y: 4370, origin: '50% 50%'}, // Hilo.View的属性。其中增加origin，类似transform-origin，使用百分比控制中心点，pivotX、x自动计算，例如：loading_gear_big
+      draw () {},       // mode=Graphics时必须，用于画Graphics
+      touchend () {},    // 点击事件，this指向app，用touchstart与touchend间的位移距离排除误触
+      transitions: [{propes: 'y', time: [0, 0 + 200], value: [0 + 150, 0]}], // 位移动画，ease默认线性
+    }
+    // mask遮罩，先建一个Graphics，其他元素的mask属性指向这个mask的id，即可只展示该mask区域内的部分，例如：cover_mask、cover_bg
+    // 几种动画写法
+    // 1.平移动画，一开始就播放，例如：loading_gear_big
+    {
+      animations: [
+        [{rotation: 30}, {time: 5000, delay: 500, ease: Hilo.Ease.Quad.EaseOut}]
+      ]
+    }
+    // 2.平移动画，滚动到某处播放，无例子
+    {
+      play: 1000, // scroller.scrollTop值
+      animations: [
+        [{rotation: 30}, {time: 5000, delay: 500, ease: Hilo.Ease.Quad.EaseOut}]
+      ]
+    }
+    // 3.平移动画，与滚动位置绑定，例如：p1_qout
+    {
+      transitions: [
+        {propes: 'y', time: [0, 5000], value: [winHeight, winHeight - 5000], ease: Hilo.Ease.Linear.easeNoneFn}
+      ]
+    }
+    // 4.Sprite精灵动画，一开始就播放，例如：cover_btn
+    {
+      mode: 'Sprite',
+      atlas: {
+        width: 1804,        // sprite图片宽度
+        height: 4104,       // sprite图片高度
+        frames: {
+          frameWidth: 451,  // 帧宽度
+          frameHeight: 684, // 帧高度
+          numFrames: 24     // 帧总数
+        },
+        sprites: {          // 若播放帧数是全部帧(如一共10帧，from 0 to 9)，可去掉此对象，例如：p1_smoke
+          sprite: {         // Hilo.TextureAtlas 序列id
+            from: 0,        // 起始帧序号
+            to: 23          // 终止帧序号
+          }
+        }
+      },
+      frames: 'sprite'      // Hilo.Sprite 取对应的 Hilo.TextureAtlas 的序列id；若播放帧数是全部帧，可去掉此对象
+    }
+    // 5.Sprite精灵动画，到某处播放，例如：p1_text1_in
+    // 在4.基础上增加
+    {
+      play: 1000  // 播放时间
+    }
+    // 6.Sprite精灵动画，与距离绑定，例如：p1_bg_out
+    // 在4.基础上增加
+    {
+      play: {start: 4200, end: 4200 + 200} // 播放起止位置，自动计算起始~终止间播放帧
+    }
+
+  ```

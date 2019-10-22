@@ -350,6 +350,7 @@ let app = {
       animationDuration: 1000,
       speedMultiplier:2.5  //乘以或减少滚动速度
     })
+    // 228120 这是整体滚动距离 需要修改
     this.scroller.setDimensions(this.winWidth, this.winHeight, this.winWidth, 228120 + this.winHeight)
     window.scroller = this.scroller
   },
