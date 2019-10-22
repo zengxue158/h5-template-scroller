@@ -2,6 +2,7 @@
 node_modules/
 dist/
 .ftppass
+MEMO.md
 
 # local env files
 .env.local

@@ -1,8 +1,8 @@
 # H5模板
 
-![version](https://img.shields.io/github/package-json/v/NyPhile/h5_template.svg)
-![commit](https://img.shields.io/github/last-commit/NyPhile/h5_template.svg)
-![new feature](https://img.shields.io/badge/author-wang__zhen-orange)
+![version](https://img.shields.io/github/package-json/v/zengxue158/h5-template-scroller.svg)
+![commit](https://img.shields.io/github/last-commit/zengxue158/h5-template-scroller.svg)
+![new feature](https://img.shields.io/badge/author-zeng_xue-orange)
 
 <!-- ![code-size](https://img.shields.io/github/languages/code-size/NyPhile/h5_template.svg) -->
 <!-- ![lang](https://img.shields.io/github/languages/top/NyPhile/h5_template.svg) -->
@@ -10,7 +10,7 @@
 ### 安装
 
 ```bash
-$ npx ne-build h5
+$ npx ne-build init -t zengxue158/h5-template-scroller
 # node版本大于5.2
 # 参数可在命令行输入，也可以输入命令后按交互提示输入
 
