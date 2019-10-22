@@ -23,7 +23,7 @@ let app = {
     let self = this
     this.loadQueue = this.getLoadQueue(this.start.bind(this))
     // 背景音乐
-    this.autoplay('bgm')
+    // this.autoplay('bgm')
   },
   bind() {
     let self = this
