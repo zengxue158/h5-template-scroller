@@ -1,4 +1,4 @@
-# H5模板
+# H5边滑边动模板
 
 ![version](https://img.shields.io/github/package-json/v/zengxue158/h5-template-scroller.svg)
 ![commit](https://img.shields.io/github/last-commit/zengxue158/h5-template-scroller.svg)
