@@ -10,7 +10,7 @@
 ### 安装
 
 ```bash
-$ npx ne-build init -t zengxue158/h5-template-scroller
+$ npx ne-build init 项目名 -t zengxue158/h5-template-scroller
 # node版本大于5.2
 # 参数可在命令行输入，也可以输入命令后按交互提示输入
 
