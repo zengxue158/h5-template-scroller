@@ -132,15 +132,6 @@ async function sleep (duration) {
   })
 }
 
-// 判断数组
-function isArray (value) {
-  if (typeof Array.isArray === 'function') {
-    return Array.isArray(value)
-  } else {
-    return Object.prototype.toString.call(value) === '[Object Array]'
-  }
-}
-
 export {
   getSearch,
   setSearch,
@@ -151,6 +142,5 @@ export {
   getAbsPath,
   loadScript,
   asyncExec,
-  sleep,
-  isArray
+  sleep
 }

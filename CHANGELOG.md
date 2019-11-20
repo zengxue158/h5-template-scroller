@@ -23,3 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - 还原了devServer的热更新模式。
+
+## 2019-11-20
+### Changed
+- 将`manifest.js`改为inline调用
+- 将`main.js`改为async调用
+- 加入章鱼统计
+
