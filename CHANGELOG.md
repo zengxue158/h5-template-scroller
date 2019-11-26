@@ -28,5 +28,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - 将`manifest.js`改为inline调用
 - 将`main.js`改为async调用
-- 加入章鱼统计
+- 增加了章鱼以及回流统计。章鱼统计发布到章鱼系统`mapp`站点；回流统计发布到章鱼系统的`sps`站点，modelid为{频道名} + {项目名}。
 
